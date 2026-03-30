@@ -10,8 +10,8 @@ st.title("Dashboard Bike Sharing 🚴")
 st.markdown("""Dashboard ini menampilkan analisis pola penggunaan sepeda berdasarkan jam, musim, dan hari.""")
 
 # Load data
-day_df = pd.read_csv("dashboard/day_cleaned.csv", parse_dates=["dteday"])
-hour_df = pd.read_csv("dashboard/hour_cleaned.csv", parse_dates=["dteday"])
+day_df = pd.read_csv("day_cleaned.csv", parse_dates=["dteday"])
+hour_df = pd.read_csv("hour_cleaned.csv", parse_dates=["dteday"])
 
 # Sidebar
 st.sidebar.header("Filter Data")
@@ -90,31 +90,6 @@ st.pyplot(fig1)
 st.markdown("---")
 
 # Visualisasi 2
-st.subheader("⏰ Pola Penyewaan Berdasarkan Jam")
-
-hourly_usage = filtered_hour.groupby("hr")["cnt"].mean().reset_index()
-
-fig2, ax2 = plt.subplots(figsize=(12,6))
-
-sns.lineplot(
-    data=hourly_usage,
-    x="hr",
-    y="cnt",
-    ax=ax2
-)
-
-ax2.set_title("Rata-rata Penyewaan per Jam")
-ax2.set_xlabel("Jam")
-ax2.set_ylabel("Jumlah Penyewaan")
-
-ax2.set_ylim(0, 700)
-
-st.pyplot(fig2)
-
-st.markdown("---")
-
-
-# Visualisasi 3
 st.subheader("🌦️ Pengaruh Cuaca terhadap Penyewaan")
 
 weather_map = {
@@ -124,23 +99,51 @@ weather_map = {
     4: "Heavy Rain/Snow"
 }
 
-weather_usage = day_df.groupby("weathersit")["cnt"].mean().reset_index()
+weather_usage = filtered_day.groupby("weathersit")["cnt"].mean().reset_index()
 weather_usage["weather_label"] = weather_usage["weathersit"].map(weather_map)
 
-fig3, ax3 = plt.subplots(figsize=(12,6))
+fig2, ax2 = plt.subplots(figsize=(12,6))
 
 sns.barplot(
     data=weather_usage,
     x="weather_label",
     y="cnt",
+    ax=ax2
+)
+
+ax2.set_title("Rata-rata Penyewaan Berdasarkan Cuaca")
+ax2.set_xlabel("Kondisi Cuaca")
+ax2.set_ylabel("Jumlah Penyewaan")
+
+ax2.set_ylim(0, 8000)
+
+st.pyplot(fig2)
+
+st.markdown("---")
+
+# Visualisasi 3
+st.subheader("⏰ Pola Penyewaan Berdasarkan Jam")
+
+hourly_usage = filtered_hour.groupby("hr")["cnt"].mean().reset_index()
+
+fig3, ax3 = plt.subplots(figsize=(12,6))
+
+sns.lineplot(
+    data=hourly_usage,
+    x="hr",
+    y="cnt",
     ax=ax3
 )
 
-ax3.set_title("Rata-rata Penyewaan Berdasarkan Cuaca")
-ax3.set_xlabel("Kondisi Cuaca")
+ax3.set_title("Rata-rata Penyewaan per Jam")
+ax3.set_xlabel("Jam")
 ax3.set_ylabel("Jumlah Penyewaan")
 
-ax3.set_ylim(0, 8000)
+ax3.set_ylim(0, 700)
 
 st.pyplot(fig3)
+
+
+
+
 
