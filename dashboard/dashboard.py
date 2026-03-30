@@ -10,8 +10,8 @@ st.title("Dashboard Bike Sharing 🚴")
 st.markdown("""Dashboard ini menampilkan analisis pola penggunaan sepeda berdasarkan jam, musim, dan hari.""")
 
 # Load data
-day_df = pd.read_csv("day_cleaned.csv", parse_dates=["dteday"])
-hour_df = pd.read_csv("hour_cleaned.csv", parse_dates=["dteday"])
+day_df = pd.read_csv("dashboard/day_cleaned.csv", parse_dates=["dteday"])
+hour_df = pd.read_csv("dashboard/hour_cleaned.csv", parse_dates=["dteday"])
 
 # Sidebar
 st.sidebar.header("Filter Data")
