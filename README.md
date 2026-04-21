@@ -1,4 +1,10 @@
-# Bike Sharing Dashboard ✨
+# 🚴 Bike Sharing Dashboard
+
+This project presents an interactive dashboard built using Streamlit to analyze bike rental patterns based on temporal and environmental factors.
+
+The dashboard provides insights into how bike usage varies across different days, hours, seasons, and weather conditions, supporting data-driven decision making.
+
+Streamlit Link https://bike-sharing-dashboard-5z9zwmoapp.streamlit.app/
 
 ## Setup Environment
 ```
